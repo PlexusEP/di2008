@@ -19,7 +19,7 @@ setup_attributes = {
     'license': 'MIT',
     'packages': ['di2008'],
     'python_requires': '>=3.6.0',
-    'install_requires': ['pyserial >= 3.4'],
+    'install_requires': ['pyusb>=1.0.0'],
     'classifiers': [
         'License :: OSI Approved :: MIT License',
         'Development Status :: 3 - Alpha',
@@ -30,6 +30,7 @@ setup_attributes = {
         'Programming Language :: Python :: Implementation :: CPython',
     ],
     'zip_safe': False
+    
 }
 
 setup(**setup_attributes)
