@@ -25,6 +25,7 @@ setup_attributes = {
     'license': 'MIT',
     'packages': ['di2008'],
     'python_requires': '>=3.6.0',
+    'setup_requires': ['pyusb>=1.0.0'],
     'install_requires': ['pyusb>=1.0.0'],
     'classifiers': [
         'License :: OSI Approved :: MIT License',
