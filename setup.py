@@ -1,9 +1,15 @@
+import os
 from setuptools import setup
-from di2008 import __version__
 
 # read the long description
 with open('readme.md', 'r') as f:
     long_description = f.read()
+
+# read the version
+version_info = {}
+with open(os.path.join('di2008', 'version.py')) as f:
+    exec(f.read(), version_info)
+__version__ = version_info['__version__']
 
 # read the requirements.txt
 
