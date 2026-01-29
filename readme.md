@@ -15,6 +15,17 @@ better yet, send us a pull request!
 
 Check out the [documentation](https://slightlynybbled.github.io/di2008/)!
 
+## Fork Information
+
+This repository is a fork of the original `di2008` library by Jason R. Jones, available at https://github.com/slightlynybbled/di2008.
+
+The goal of this fork is to apply updates for compatibility with modern Python packaging tools and continue maintenance.
+
+### Modifications from Original
+
+*   **Dependencies:** Replaced the `pyserial` dependency with `pyusb` to correctly reflect that the library operates in USB mode, not COM port mode.
+*   **Build System:** Resolved a build-time `ModuleNotFoundError` that occurred in isolated build environments (like `uv`). This was fixed by modifying `setup.py` to read the version string directly from `version.py` instead of importing the package during the build process.
+
 ## Installation
 
 The hardware drivers must be installed before this package may be utilized.  Hardware 
