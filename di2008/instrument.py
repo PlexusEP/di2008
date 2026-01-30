@@ -456,24 +456,25 @@ class DigitalPort(Port):
 class Di2008:
     """
     The device controller which implements its own ``threading.Thread`` class \
-    and processes incomming data based on its defined scan list.  The
-    ``port_name`` and ``serial_number`` allow the user to specify a
-    particular device on the bus when there may be more than one device
-    present on the bus.  If both ``port_name`` and ``serial_number`` are
-    specified, then ``serial_number`` will take precedence.  If neither
-    are specified, then the first instrument found on the bus will be
+    and processes incoming data based on its defined scan list.  The
+    ``serial_number`` allows the user to specify a particular device on the
+    bus when there may be more than one device present on the bus. If not
+    specified, then the first instrument found on the bus will be
     automatically acquired.
 
-    :param port_name: the COM port (if not specified, the software will \
-    attempt to find the device)
     :param serial_number: the serial number of the device to acquire
+    :param srate: an integer to define the sample rate divisor. Must be \
+    between 4 and 2232.
     :param timeout: the period of time over which input data is pulled from \
     the serial port and processed
     :param loglevel: the logging level, i.e. ``logging.INFO``
     """
-    def __init__(self, serial_number: str = None, timeout=0.05, loglevel=logging.INFO):
+    def __init__(self, serial_number: str = None, srate: int = 4, timeout=0.05, loglevel=logging.INFO):
         self._logger = logging.getLogger(self.__class__.__name__)
         self._logger.setLevel(loglevel)
+
+        if not 4 <= srate <= 2232:
+            raise ValueError('srate must be between 4 and 2232, inclusive')
 
         self._timeout = timeout
         self._scanning = False
@@ -490,7 +491,7 @@ class Di2008:
 
         # initialize the command queue with basic information requests
         self._command_queue = [
-            'stop', 'info 0', 'info 1', 'info 2', 'info 6', 'srate 4'
+            'stop', 'info 0', 'info 1', 'info 2', 'info 6', f'srate {srate}'
         ]
 
         success = self._discover(serial_number)
